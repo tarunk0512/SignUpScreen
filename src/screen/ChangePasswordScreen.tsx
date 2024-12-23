@@ -1,59 +1,46 @@
-import { StyleSheet, Text, View, Image, TextInput, 
-    ImageBackground, TouchableOpacity, Alert } from "react-native";
-import React, {useEffect} from 'react'
+import { StyleSheet, Text, View, Image, TextInput, ImageBackground,
+     TouchableOpacity, KeyboardAvoidingView, Platform } from "react-native";
+import React from 'react'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Fontiso from 'react-native-vector-icons/Fontisto';
+import Entypo from 'react-native-vector-icons/Entypo'
 import LinearGradient from "react-native-linear-gradient";
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { useNavigation, useRoute} from "@react-navigation/native";
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import { useNavigation } from "@react-navigation/native";
 
 
 
-const LoginScreen = () => {
+const ChangePasswordScreen = () => {
     const navigation = useNavigation();
-    const route = useRoute();
-
-    useEffect(() => { 
-        if (route.params?.resetSuccess) 
-        {
-             Alert.alert('Success', 'Password reset successfully, kindly proceed with Login.'); 
-        } else if (route.params?.signupSuccess) { 
-            Alert.alert('Welcome!', 'Your account has been created successfully. Please log in.');
-         } else if (route.params?.loggedOut) {
-             Alert.alert('Logged Out', 'You have been logged out successfully.'); 
-            } }, [route.params]);
 
     const handleRegister = () => {
-        navigation.navigate("Signup");
+        navigation.navigate("Login", { resetSuccess: true});
     }
-    const handleLogin = () => {
-        navigation.navigate("HomeScreen");
-    }
-
-    const handleForgetPassword = () => {
-        navigation.navigate("ForgetPassword")
-    }
-    return (
-        <View style = {styles.container}>
+    return (     
+     <View style = {styles.container}>
             <View style = {styles.topImageContainer}>
-            <Image source = {require("../assets/topVector.png")} 
+            <Image source = {require("../assets/providePasswordVector.png")} 
             style = {styles.topImage} 
             resizeMode="contain"
             />
         </View>
         <View style={styles.helloContainer}>
-        <Text style={styles.helloText}>Login </Text>
+        <Text style={styles.helloText}>Reset Your Password</Text>
       </View>
-      <View>
-        <Text style={styles.signInText}>Login in to your account</Text>
-      </View>
+      <Text style = {styles.registeredEmailText}> Enter the OTP you received on the mail : </Text>
       <View style={styles.inputContainer}>
-        <FontAwesome 
-        name={"user"} 
+        <Ionicons 
+        name={"keypad"} 
         size={30} 
         color={"#9A9A9A"} 
         style= {styles.inputIcon} />
-        <TextInput style= {styles.textInput} placeholder = "Username"/>
+        <TextInput 
+        style= {styles.textInput} 
+        placeholder = "OTP"
+        keyboardType="phone-pad" // This sets the numeric keypad
+        secureTextEntry
+        />
       </View>
       <View style={styles.inputContainer}>
         <Fontiso 
@@ -63,36 +50,47 @@ const LoginScreen = () => {
         style= {styles.inputIcon} />
         <TextInput 
         style= {styles.textInput} 
-        placeholder = "Password"
+        placeholder = "New Password"
         secureTextEntry
         />
       </View>
-    <View style = {styles.signInButtonContainer}>
-      <TouchableOpacity onPress={handleLogin}> 
-        <View style={styles.signInWrapper}>
-             <Text style={styles.signIn}>Log In</Text> 
-             <AntDesign name="arrowright" size={24} color="black" style={styles.arrowContainer} /> 
-             </View> 
-             </TouchableOpacity>
-             </View>
-    <TouchableOpacity onPress={handleForgetPassword}>
-    <Text style={styles.forgotPasswordText}>Forgot your password ?</Text>
-    </TouchableOpacity>
-    <TouchableOpacity onPress={handleRegister}>
-    <Text style= {styles.footerText}> Don't have an account ? Create </Text>
-    </TouchableOpacity>
+      
+      
+      <View style={styles.inputContainer}>
+        <Fontiso 
+        name={"locked"} 
+        size={30} 
+        color={"#9A9A9A"} 
+        style= {styles.inputIcon} />
+        <TextInput 
+        style= {styles.textInput} 
+        placeholder = "Re-enter Password"
+        secureTextEntry
+        />
+      </View>
+      <View style = {styles.signInButtonContainer}>
+            <TouchableOpacity onPress={handleRegister}> 
+              <View style={styles.signInWrapper}>
+                   <Text style={styles.signIn}>Change Password</Text> 
+                   <AntDesign name="arrowright" size={24} color="black" style={styles.arrowContainer} /> 
+                   </View> 
+                   </TouchableOpacity>
+                   </View>
+    
     {/* <View style = {styles.leftVectorContainer}>
         <ImageBackground 
         source = {require("../assets/leftVector.png")} 
-        style = {styles.leftVectorImage}>
+        style = {styles.leftVectorImage}
+        imageStyle={styles.leftVectorImageInner}>
         </ImageBackground>
     </View> */}
     </View>
+   
     );
 };
 
 
-export default LoginScreen;
+export default ChangePasswordScreen;
 
 
 const styles = StyleSheet.create({
@@ -101,7 +99,16 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center', // Centers the content horizontally 
         justifyContent: 'center', // Centers the content horizontally justifyContent: 'center',
+
     },
+    registeredEmailText: {
+        marginTop: 30,
+        marginBottom: 5,
+        textAlign: "center",
+        fontSize: 15,
+        fontWeight: "500",
+        color: "#262626",
+      },
     topImageContainer: { 
         justifyContent: 'center',
         alignItems: 'center', 
@@ -109,7 +116,7 @@ const styles = StyleSheet.create({
     topImage: {
         flex: 1,
         position: 'absolute',
-        top: -50,
+        top: -65,
         width: "100%",
         height: 150,
     },
@@ -119,8 +126,7 @@ const styles = StyleSheet.create({
     },
     helloText: {
       textAlign: "center",
-      fontSize: 70,
-      marginLeft: 30,
+      fontSize: 30,
       fontWeight: "700",
       color: "#262626",
     },
@@ -139,7 +145,7 @@ const styles = StyleSheet.create({
         marginVertical: 20,
         alignItems: "center",
         height: 50,
-        zIndex: 1,
+        zIndex: 1, // Ensure this is above the background image
     },
     inputIcon: {
         marginLeft: 15,
@@ -151,22 +157,17 @@ const styles = StyleSheet.create({
     forgotPasswordText: {
         color: "#BEBEBE",
         textAlign: "right",
-        width: "45%",
+        width: "90%",
         fontSize: 15,
-        marginTop: 30,
-        alignSelf: 'flex-end', // Move text to the right
-        marginRight: -170,
-
     },
     signInButtonContainer: {
         flexDirection: "row",
         alignItems: "center",
         marginTop: 25,
-        //backgroundColor: "purple"
     },
     signIn: {
         color: "#262626",
-        fontSize: 25,
+        fontSize: 18,
         fontWeight: "bold",
         textAlign: "center",
         backgroundColor : "#D8BFD8",
@@ -179,16 +180,14 @@ const styles = StyleSheet.create({
         backgroundColor: "#D8BFD8", 
         height: 50,
         paddingHorizontal: 15, 
-        borderRadius: 50, 
+        borderRadius: 40, 
     },
     footerText: {
         color: "#262626",
         textAlign: "center",
-        flexDirection: "row",
-        alignItems: "center",
         fontSize: 15,
-        marginTop: 120,
-       // backgroundColor: "green",
+        marginTop: 10,
+        //backgroundColor: "green",
     },
     leftVectorContainer: {
         position: "absolute",
@@ -199,6 +198,8 @@ const styles = StyleSheet.create({
         height: 350,
         width: 250,
     },
+    leftVectorImageInner: { 
+         },
     linearGradient: {
         height: 34,
         width: 56,

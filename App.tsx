@@ -4,6 +4,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from './src/screen/LoginScreen';
 import SignupScreen from './src/screen/SignupScreen';
+import ForgetPasswordScreen from './src/screen/ForgetPasswordScreen';
+import ChangePasswordScreen from './src/screen/ChangePasswordScreen';
+import HomePageScreen from './src/screen/HomePageScreen';
+import OtpVerificationScreen from './src/screen/OtpVerificationScreen';
 
 // export default function App() {
 //   return (
@@ -24,7 +28,11 @@ const App = () =>{
         >
         <Stack.Screen name = "Login" component={LoginScreen} />
         <Stack.Screen name = "Signup" component={SignupScreen} />
-      </Stack.Navigator>
+        <Stack.Screen name = "ForgetPassword" component={ForgetPasswordScreen} />
+        <Stack.Screen name = "ChangePassword" component={ChangePasswordScreen} />
+        <Stack.Screen name = "HomeScreen" component={HomePageScreen} />
+        <Stack.Screen name = "OtpVerification" component={OtpVerificationScreen} />
+              </Stack.Navigator>
     </NavigationContainer>
     
 
