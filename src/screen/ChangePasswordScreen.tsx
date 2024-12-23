@@ -30,19 +30,6 @@ const ChangePasswordScreen = () => {
       </View>
       <Text style = {styles.registeredEmailText}> Enter the OTP you received on the mail : </Text>
       <View style={styles.inputContainer}>
-        <Ionicons 
-        name={"keypad"} 
-        size={30} 
-        color={"#9A9A9A"} 
-        style= {styles.inputIcon} />
-        <TextInput 
-        style= {styles.textInput} 
-        placeholder = "OTP"
-        keyboardType="phone-pad" // This sets the numeric keypad
-        secureTextEntry
-        />
-      </View>
-      <View style={styles.inputContainer}>
         <Fontiso 
         name={"locked"} 
         size={30} 
